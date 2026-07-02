@@ -15,11 +15,14 @@ pipeline {
 
         stage('Docker Build') {
             steps {
-                sh """
+                // 이렇게 dir 블록으로 감싸주세요!
+                dir('devops-front-main') {
+                    sh """
                     docker build \
                     --build-arg REACT_APP_API_BASE_URL=http://15.164.163.6:8088/api \
                     -t ${DOCKER_IMAGE}:${DOCKER_TAG} .
-                """
+                    """
+                }
             }
         }
 
